@@ -273,8 +273,7 @@ with DAG(
     
     # Define task dependencies to run scripts sequentially
     # Task dependencies
-    feature_store_completed >> model_automl_start
-    label_store_completed >> model_automl_start
+    model_monitor_completed >> model_automl_start
     model_automl_start >> branch_retrain
     branch_retrain >> [model_xgb_automl, skip_retrain]
     model_xgb_automl >> model_automl_completed
