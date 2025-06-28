@@ -214,7 +214,7 @@ with DAG(
     model_inference_completed = DummyOperator(task_id="model_inference_completed")
     
     # Define task dependencies to run scripts sequentially
-    feature_store_completed >> model_xgb_inference
+    feature_store_completed >> model_inference_start
     model_inference_start >> model_xgb_inference >> model_inference_completed
     
 
@@ -234,6 +234,7 @@ with DAG(
     
     # Define task dependencies to run scripts sequentially
     model_inference_completed >> model_monitor_start
+    label_store_completed >> model_monitor_start
     model_monitor_start >> model_xgb_monitor >> model_monitor_completed
 
 
